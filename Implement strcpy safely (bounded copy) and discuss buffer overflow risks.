@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+// Safe string copy: copies at most destSize-1 characters and null-terminates
+void safe_strcpy(char *dest, const char *src, int destSize)
+{
+    int i = 0;
+
+    // Copy until end of src or until dest is full (leaving space for '\0')
+    while (src[i] != '\0' && i < destSize - 1)
+    {
+        dest[i] = src[i];
+        i++;
+    }
+
+    // Always null-terminate
+    dest[i] = '\0';
+}
+
+int main()
+{
+    char src[100];
+    char dest[10];   // Intentionally small buffer to show safety
+
+    // Read source string (with spaces)
+    fgets(src, sizeof(src), stdin);
+
+    // Remove newline from fgets (optional, but cleaner)
+    for (int i = 0; src[i] != '\0'; i++)
+    {
+        if (src[i] == '\n')
+        {
+            src[i] = '\0';
+            break;
+        }
+    }
+
+    // Use safe copy
+    safe_strcpy(dest, src, sizeof(dest));
+
+    printf("Source: %s\n", src);
+    printf("Destination (safely copied): %s\n", dest);
+
+    return 0;
+}
