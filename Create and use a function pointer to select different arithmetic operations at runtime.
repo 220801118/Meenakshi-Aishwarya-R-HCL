@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+// Arithmetic functions
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int sub(int a, int b)
+{
+    return a - b;
+}
+
+int mul(int a, int b)
+{
+    return a * b;
+}
+
+int divide(int a, int b)
+{
+    if (b == 0)
+    {
+        printf("Error: Division by zero\n");
+        return 0;
+    }
+    return a / b;  // Integer division
+}
+
+int main()
+{
+    int a, b;
+    char op;
+
+    // Function pointer declaration
+    int (*operation)(int, int);
+
+    // Read inputs
+    scanf("%d %d", &a, &b);
+    scanf(" %c", &op);   // space before %c to skip newline
+
+    // Select function at runtime
+    switch (op)
+    {
+        case '+':
+            operation = add;
+            break;
+        case '-':
+            operation = sub;
+            break;
+        case '*':
+            operation = mul;
+            break;
+        case '/':
+            operation = divide;
+            break;
+        default:
+            printf("Invalid operator\n");
+            return 0;
+    }
+
+    // Call the selected function using function pointer
+    int result = operation(a, b);
+
+    printf("Result = %d\n", result);
+
+    return 0;
+}
