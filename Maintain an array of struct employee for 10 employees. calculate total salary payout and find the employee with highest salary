@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+struct employee {
+    int emp_no;
+    char name[50];
+    int salary;
+};
+int main()
+{
+    struct employee s[10];
+    int topper=0;
+    for(int i=0;i<10;i++)
+    {
+        printf("\nEnter details of employee %d\n", i + 1);
+        printf("Emp. number:\n");
+        scanf("%d",&s[i].emp_no);
+        printf("Name:\n");
+        scanf("%s",s[i].name);
+        printf("Salary:\n");
+        scanf("%d",&s[i].salary);
+    }
+    
+    for (int i=1;i<10;i++)
+    {
+        if(s[i].salary>s[topper].salary)
+        {
+            topper=i;
+        }
+    }
+printf("\n Topper details \n");
+printf("Emp. number: %d\n",s[topper].emp_no);
+printf("Name: %s\n",s[topper].name);
+printf("Salary: %.2f\n",s[topper].salary);
+
+return 0;
+}
