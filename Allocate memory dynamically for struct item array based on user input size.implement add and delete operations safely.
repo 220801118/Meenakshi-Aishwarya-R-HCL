@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Item {
+    int id;
+    char name[30];
+    float price;
+};
+
+int main() {
+    struct Item *items;
+    int n, choice;
+
+    printf("Enter initial number of items: ");
+    scanf("%d", &n);
+
+    items = (struct Item *)malloc(n * sizeof(struct Item));
+    if (items == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Input initial items
+    for (int i = 0; i < n; i++) {
+        printf("Enter ID, Name, Price for item %d: ", i + 1);
+        scanf("%d %s %f", &items[i].id, items[i].name, &items[i].price);
+    }
+
+    while (1) {
+        printf("\n1. Add Item\n");
+        printf("2. Delete Item\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            // Add item
+            items = (struct Item *)realloc(items, (n + 1) * sizeof(struct Item));
+            if (items == NULL) {
+                printf("Memory reallocation failed!\n");
+                return 1;
+            }
+
+            printf("Enter ID, Name, Price for new item: ");
+            scanf("%d %s %f", &items[n].id, items[n].name, &items[n].price);
+
+            n++;
+            printf("Item added successfully.\n");
+        }
+        else if (choice == 2) {
+            // Delete item
+            int pos;
+            if (n == 0) {
+                printf("No items to delete.\n");
+                continue;
+            }
+
+            printf("Enter item number to delete (1 to %d): ", n);
+            scanf("%d", &pos);
+
+            if (pos < 1 || pos > n) {
+                printf("Invalid position!\n");
+            } else {
+                for (int i = pos - 1; i < n - 1; i++) {
+                    items[i] = items[i + 1];
+                }
+                n--;
+
+                items = (struct Item *)realloc(items, n * sizeof(struct Item));
+                printf("Item deleted successfully.\n");
+            }
+        }
+        else if (choice == 3) {
+            // Display items
+            if (n == 0) {
+                printf("No items to display.\n");
+            } else {
+                printf("\nID\tName\tPrice\n");
+                for (int i = 0; i < n; i++) {
+                    printf("%d\t%s\t%.2f\n", items[i].id, items[i].name, items[i].price);
+                }
+            }
+        }
+        else if (choice == 4) {
+            // Exit
+            break;
+        }
+        else {
+            printf("Invalid choice!\n");
+        }
+    }
+
+    free(items);
+    return 0;
+}
