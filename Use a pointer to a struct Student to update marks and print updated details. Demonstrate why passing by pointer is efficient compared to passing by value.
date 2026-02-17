@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+struct student {
+    int roll;
+    char name[50];
+    int marks;
+};
+int main()
+{
+    struct student s;
+    struct student *ptr;
+    printf("\nEnter details of student\n");
+    printf("Roll number:\n");
+    scanf("%d",&s.roll);
+    printf("Name:\n");
+    scanf("%s",s.name);
+    printf("Marks:\n");
+    scanf("%d",&s.marks);
+    
+    s.marks=s.marks+10;
+    
+    printf("\n Updated mark details \n");
+    printf("Emp. number: %d\n",s.roll);
+    printf("Name: %s\n",s.name);
+    printf("Marks: %d\n",s.marks);
+    
+    ptr=&s;
+    ptr->marks=ptr->marks+20;
+    
+    printf("\n Updated mark details \n");
+    printf("Emp. number: %d\n",ptr->roll);
+    printf("Name: %s\n",ptr->name);
+    printf("Marks: %d\n",ptr->marks);
+
+    printf("pointer: %lu bytes\n",sizeof(ptr));
+    printf("struct: %lu bytes\n",sizeof(s));
+return 0;
+}
