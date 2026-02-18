@@ -68,7 +68,3 @@ int main()
     return 0;
 }
 
-OUTPUT:
-29
-
-Prime
